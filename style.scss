@@ -334,11 +334,15 @@ button:-moz-focusring,
   position: absolute;
   top: 0.75rem;
   right: 0.5rem;
+  padding: 0.5rem;
   .bar {
-    height: 4px;
-    width: 35px;
+    display: block;
+    height: 5px;
+    width: 40px;
     background-color: var(--text-main);
-    margin-bottom: 4px;
+    &:nth-of-type(2) {
+      margin: 4px 0;
+    }
     border-radius: 3px;
   }
 }
@@ -544,9 +548,17 @@ header {
     }
   }
 
+  @media (min-width: 800px) {
+    // Fix burger image starting to cut off on the left side
+    .hero {
+      &::after {
+        background-position: 0% 100%; // stick burger to left grid line
+      }
+    }
+  }
+
   @media (min-width: $desktop) {
-    // Burger image starts to cut off on left side as we're now using more grid rows
-    // Reset bg position anchored against left end + make the burger take the whole height
+    // make the burger take the whole height
     .hero {
       grid-template-columns: minmax(48%, 1fr) 1fr 5rem;
       h1 {
@@ -558,7 +570,7 @@ header {
       &::after {
         grid-row: 1 / -1;
         grid-column: 1 / 2;
-        background-position: 0% 100%; // stick burger to left grid line
+
         background-size: auto 110%;
       }
       .social {
@@ -584,6 +596,7 @@ header {
   a {
     color: var(--clr-white);
     text-transform: uppercase;
+    font-weight: 500;
     span {
       display: block;
       margin-bottom: 2rem;
