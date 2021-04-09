@@ -1,0 +1,724 @@
+$mobile: 320px;
+$tablet: 700px;
+$desktop: 1000px;
+$max-width: 1200px;
+
+:root {
+  --clr-accent: #e75605;
+  --clr-black: #030c1d;
+  --clr-white: #ffffff;
+  --clr-grey: #eaeaea;
+  --clr-grey-light: #ececec;
+  --clr-grey-dark: #777;
+
+  --text-main: var(--clr-black);
+
+  --ff-heading: Montserrat;
+
+  --fz-h1: 7.32rem; //146.4px
+  --fz-h2: 2rem; // 42px
+  --fz-h3: 1.5rem; // 30px
+  --fz-p: 1rem; // 20px
+  --lh-p: 1.45; // This is relative to the current font-size
+
+  --margin-nav: 2.9rem;
+
+  --px-s: 2rem;
+
+  --header-height: clamp(450px, 50vw, 650px);
+  --navbar-height: 3rem;
+
+  --max-width: 1200px;
+
+  @media (min-width: $tablet) {
+    --fz-h1: 7.32rem; //146.4px
+    --fz-h2: 2.1rem; // 42px
+    --fz-h3: 1.5rem; // 30px
+    --fz-p: 1rem; // 20px
+    --lh-p: 1.45; // This is relative to the current font-size
+  }
+}
+
+/* =================================
+ * Normalize & Global
+ ==================================*/
+
+html {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  // Browser base size = 100%
+  // Let's respect the intention behind relative units (rem & em)
+  // IMHO, setting base font-size to 62.5% is like setting Pi to 1 (and use 3.14159 * Pi for the ratio of the circumference to the diameter)
+  font-size: 112.5%; // 16px
+  @media (min-width: $desktop) {
+    font-size: 125%; // 20px
+  }
+}
+body {
+  margin: 0;
+  font-family: Catamaran, sans-serif;
+  font-size: 2rem;
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+.heading,
+a {
+  font-family: var(--ff-heading);
+}
+
+h1 {
+  font-size: var(--fz-h1);
+  margin: 0;
+  line-height: 0.819672131;
+  letter-spacing: 0.3rem;
+}
+
+h2 {
+  font-size: var(--fz-h2);
+  text-transform: uppercase;
+  color: var(--clr-accent);
+}
+
+p {
+  font-size: var(--fz-p);
+  line-height: var(--lh-p);
+}
+
+main {
+  display: block;
+}
+
+a {
+  display: inline-block;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  border-style: none;
+  max-width: 100%;
+  // max-height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+button {
+  border: none;
+  background: transparent;
+  font: inherit;
+}
+
+button,
+input {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+button,
+input {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html [type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button;
+}
+button::-moz-focus-inner,
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+button:-moz-focusring,
+[type='button']:-moz-focusring,
+[type='reset']:-moz-focusring,
+[type='submit']:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+[hidden] {
+  display: none;
+}
+
+/* =================================
+ * Utility
+ ==================================*/
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: '';
+  clear: both;
+  height: 0;
+}
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.visuallyHidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(00 0 0);
+  overflow: hidden;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.desktop-only {
+  @media (max-width: $desktop - 1) {
+    display: none;
+    opacity: 0;
+  }
+}
+
+.desktop-hidden {
+  display: initial;
+  @media (min-width: $desktop) {
+    display: none;
+  }
+}
+
+.active {
+  color: var(--clr-accent);
+}
+
+.container {
+  padding: 2rem clamp(1rem, 5vw, 2rem);
+  width: 100%;
+  max-width: $tablet;
+  margin: 0 auto;
+  height: 100%;
+  @media (min-width: $desktop) {
+    max-width: $max-width;
+  }
+}
+/* =================================
+ * Animations
+ ==================================*/
+@keyframes fade-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(0%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(0%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-10%);
+  }
+}
+
+/* =================================
+ * Components
+ ==================================*/
+
+.nav {
+  width: 100%;
+  height: var(--navbar-height);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  ul {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-family: var(--ff-heading);
+    line-height: var(--lh-p);
+    a {
+      font-size: var(--fz-p);
+      font-weight: 500;
+      position: relative;
+      &::after {
+        content: '';
+        height: 2px;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background-color: var(--clr-accent);
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+
+      &:hover::after {
+        transition: transform 200ms ease-in-out;
+        transform: scaleX(1);
+      }
+    }
+  }
+}
+
+.btn {
+  text-transform: uppercase;
+  font-size: var(--fz-p);
+  font-weight: bold;
+  border: solid 4px var(--clr-accent);
+  padding: 0.5rem 1rem;
+  background: var(--clr-white);
+  &:hover {
+    transition: background-color 200ms ease-in-out;
+    background: var(--clr-accent);
+    color: var(--clr-white);
+  }
+}
+
+.menu-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.5rem;
+  .bar {
+    height: 4px;
+    width: 35px;
+    background-color: var(--text-main);
+    margin-bottom: 4px;
+    border-radius: 3px;
+  }
+}
+
+.card {
+  .card-body {
+    text-align: center;
+
+    p {
+      margin: 1rem 0;
+    }
+  }
+  img {
+    max-height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.card-full {
+  .card-img {
+    height: 50vw;
+  }
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $desktop) {
+    flex-direction: row;
+    height: 40vw;
+    .card-img,
+    .card-body {
+      flex: 1 1 50%;
+    }
+    .card-img {
+      height: 100%;
+      img {
+        height: 100%;
+      }
+    }
+    .card-body {
+      height: 100%;
+      .container {
+        display: flex;
+        max-width: 30rem;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        text-align: left;
+      }
+    }
+    --px-desktop: calc((100vw - var(--max-width)) / 2);
+    &.img-right {
+      .card-img {
+        order: 1;
+      }
+      .container {
+        // avoid negative margin when vw < max-width (1200px)
+        margin-left: max(var(--px-desktop), 0px);
+      }
+    }
+    &.img-left {
+      .card-img {
+        order: 0;
+      }
+      .container {
+        margin-right: max(var(--px-desktop), 0px);
+      }
+    }
+  }
+}
+
+.card-padded {
+  background: var(--clr-grey-light);
+  .card-img {
+    height: 80vw;
+  }
+  .card-body {
+    h2 {
+      margin-top: 1em;
+    }
+    p {
+      text-align: left;
+    }
+    a {
+      padding: 0.5em 2em;
+    }
+  }
+
+  @media (min-width: $desktop) {
+    padding: 5rem 0;
+    .container {
+      // display: flex;
+      // gap: 2rem;
+      height: 24rem;
+
+      .card-img {
+        // flex: 1 1 auto;
+        height: 100%;
+        float: left;
+        margin-right: 2rem;
+        img {
+          height: 100%;
+          width: auto;
+        }
+      }
+      .card-body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left;
+        h2 {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+/* =================================
+ * Partials
+ ==================================*/
+
+header {
+  width: 100%;
+  position: relative;
+  height: var(--header-height);
+  overflow-x: hidden;
+
+  .hero {
+    --fz-min: 2.2rem;
+    --fz-fluid: calc(8vw + 1rem);
+    --fz: min(var(--fz-h1), max(var(--fz-fluid), var(--fz-min)));
+    height: calc(var(--header-height) - var(--navbar-height));
+    display: grid;
+    grid-template-columns: 1fr 1fr 5rem;
+    grid-template-rows: 1fr 0.1fr 1.5fr 1.5fr;
+
+    h1 {
+      grid-column: 2 / 4;
+      grid-row: 1 / 3;
+      color: var(--clr-accent);
+      font-size: var(--fz);
+      font-weight: 600;
+      width: min-content;
+      justify-self: start;
+      align-self: end;
+    }
+    &::after {
+      content: '';
+      display: block;
+      grid-column: 1 / 3;
+      grid-row: 2 / -1;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      background: url('https://psd.hackeryou.com/assignment1-assets/hangry-tummy/header-burger.png');
+      background-repeat: no-repeat;
+      background-size: auto 110%;
+      background-position: 80% 100%;
+      // margin-right: 200px;
+    }
+  }
+
+  .social {
+    display: none;
+    grid-column: -2 / -1;
+    grid-row: 1 / -1;
+    align-self: center;
+    justify-self: start;
+    position: relative;
+    bottom: 1rem;
+
+    li {
+      margin: 0.5rem;
+      i {
+        font-size: var(--fz-h3);
+        color: var(--clr-accent);
+      }
+
+      &:hover {
+        animation: fade-in-left 1s forwards;
+      }
+    }
+  }
+
+  @media (min-width: 410px) {
+    // shift layout for tablets
+    .hero {
+      grid-template-columns: 1.4fr 1fr 5rem;
+      h1 {
+        grid-row: 2 / 4;
+        grid-column: 2 / 4;
+        justify-self: center;
+      }
+      &::after {
+        grid-row: 1 / -1;
+        grid-column: 1 / 2;
+        background-position: 85% 100%; // stick burger to right grid line
+        background-size: auto 100%;
+      }
+    }
+  }
+
+  @media (min-width: $desktop) {
+    // Burger image starts to cut off on left side as we're now using more grid rows
+    // Reset bg position anchored against left end + make the burger take the whole height
+    .hero {
+      grid-template-columns: minmax(48%, 1fr) 1fr 5rem;
+      h1 {
+        grid-row: 1 / -1;
+        grid-column: 2 / 3;
+        justify-self: start;
+        align-self: center;
+      }
+      &::after {
+        grid-row: 1 / -1;
+        grid-column: 1 / 2;
+        background-position: 0% 100%; // stick burger to left grid line
+        background-size: auto 110%;
+      }
+      .social {
+        display: block;
+      }
+    }
+  }
+}
+
+.more-info {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 0;
+
+  text-align: center;
+  background: var(--clr-accent);
+  .info-item {
+    margin-bottom: 3rem;
+    &:hover {
+      animation: fade-in-up 1s forwards;
+    }
+  }
+  a {
+    color: var(--clr-white);
+    text-transform: uppercase;
+    span {
+      display: block;
+      margin-bottom: 2rem;
+      i {
+        font-size: calc(var(--fz-h2) * 2);
+      }
+    }
+  }
+
+  @media (min-width: $desktop) {
+    padding: 7rem 0;
+    .info-list {
+      display: flex;
+      max-width: 40rem;
+      margin: 0 auto;
+      justify-content: space-between;
+      align-items: center;
+      li {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.gram {
+  overflow-x: hidden;
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+  }
+  ul {
+    width: calc(150% + 3vw * 1);
+    // height: 10rem;
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      width: 50%;
+      &:not(:last-of-type) {
+        margin-right: 3vw;
+      }
+      &:not(:nth-of-type(-n + 2)) {
+        opacity: 0;
+      }
+    }
+  }
+
+  @media (min-width: $desktop) {
+    padding: 2rem 0 3rem;
+    ul {
+      height: auto;
+      width: 100%;
+      li {
+        &:not(:nth-of-type(-n + 2)) {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+footer {
+  // form element is overflown causing extra space on the right
+  overflow-x: hidden;
+  background: var(--clr-grey);
+
+  .footer-content {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    h2 {
+      font-size: var(--fz-h3);
+      margin-bottom: 1rem;
+    }
+
+    form {
+      margin: 1rem auto 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25em;
+      input {
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+        border: 0;
+        padding: 0.75em 2em;
+      }
+      button {
+        width: 100%;
+      }
+    }
+
+    @media (min-width: $desktop) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      text-align: left;
+      section {
+        width: 50%;
+      }
+
+      h2 {
+        margin-left: 1.25em;
+        margin-bottom: 0.5rem;
+      }
+
+      .contact {
+        h2 {
+          margin-bottom: 1rem;
+        }
+      }
+
+      form {
+        width: 100%;
+        flex-direction: row;
+        gap: 0;
+        input {
+          text-align: left;
+        }
+        button {
+          width: min-content;
+        }
+      }
+    }
+  }
+
+  .credit {
+    width: 100%;
+    background: var(--clr-black);
+    color: var(--clr-grey-dark);
+    font-size: 1rem;
+    text-align: center;
+    padding: 0.5em 0;
+  }
+}
